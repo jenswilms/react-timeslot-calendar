@@ -49,6 +49,7 @@ export default class Day extends React.Component {
       timeslotProps,
       selectedTimeslots,
       disabledTimeslots,
+      groupTimeslots,
       momentTime,
       initialDate,
     } = this.props;
@@ -67,7 +68,7 @@ export default class Day extends React.Component {
       };
 
       let status = DEFAULT;
-      if (timeslotDates.startDate.isBefore(initialDate) || timeslotDates.startDate.isSame(initialDate)) {
+      if (timeslotDates.startDate.isBefore(initialDate)) {
         status = DISABLED;
       }
 
@@ -79,6 +80,12 @@ export default class Day extends React.Component {
         return disabledTimeslot.startDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '[)') ||
                disabledTimeslot.endDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '(]');
       });
+      
+      let amount = 0;
+      const groupIndex = groupTimeslots.findIndex((groupTimeslot) => (
+        groupTimeslot.startDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '[)') ||
+               groupTimeslot.endDate.isBetween(timeslotDates.startDate, timeslotDates.endDate, null, '(]')
+      ));
 
       if (isDisabled) {
         status = DISABLED;
@@ -87,6 +94,9 @@ export default class Day extends React.Component {
         status = SELECTED;
       }
 
+      if (groupIndex !== -1) {
+        amount = groupTimeslots[groupIndex].amount;
+      }
 
       return (
         <Timeslot
@@ -94,6 +104,7 @@ export default class Day extends React.Component {
           description = { description }
           onClick = { this._onTimeslotClick.bind(this, index) }
           status = { status }
+          amount = { amount }
         />
       );
     });
@@ -141,6 +152,7 @@ Day.propTypes = {
   timeslotProps: PropTypes.object,
   selectedTimeslots: PropTypes.array,
   disabledTimeslots: PropTypes.array,
+  groupTimeslots: PropTypes.array,
   timeslotFormat: PropTypes.string.isRequired,
   timeslotShowFormat: PropTypes.string.isRequired,
   onTimeslotClick: PropTypes.func.isRequired,

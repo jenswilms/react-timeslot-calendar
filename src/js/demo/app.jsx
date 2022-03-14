@@ -35,7 +35,24 @@ export default class App extends React.Component {
           timeslots = { [
             ['9', '10'],
             ['10', '11'],
-            ['18'],
+            ['18', '19'],
+          ] }
+          groupTimeslots = { [
+            {
+              startDate: '04/24/2017, 18',
+              format: 'MM/DD/YYYY, h',
+              amount: 3,
+            },
+            {
+              startDate: 'May 1st 2017, 3:00:00 PM',
+              format: 'MMMM Do YYYY, h:mm:ss A',
+              amount: 3,
+            },
+            {
+              startDate: 'May 5th 2017, 6:00:00 PM',
+              format: 'MMMM Do YYYY, h:mm:ss A',
+              amount: 3,
+            },
           ] }
           maxTimeslots = { 3 }
           onSelectTimeslot = { (timeslots, lastSelected) => {

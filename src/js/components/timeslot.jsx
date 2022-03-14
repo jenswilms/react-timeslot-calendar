@@ -13,6 +13,7 @@ export default class Timeslot extends React.Component {
     const {
       description,
       status,
+      amount,
       customClassNames,
     } = this.props;
 
@@ -24,7 +25,8 @@ export default class Timeslot extends React.Component {
 
     return (
       <div className = { timeslotClassNames } onClick = { this._onTimeslotClick.bind(this) }>
-        { description }
+        <p className = "tsc-timeslotText">{ description }</p>
+        <p className = "tsc-timeslotAvailability">{amount}</p>
       </div>
     );
   }
@@ -58,6 +60,7 @@ Timeslot.propTypes = {
     SELECTED,
     DISABLED,
   ]),
+  amount: PropTypes.number,
   onClick: PropTypes.func.isRequired,
   customClassNames: PropTypes.oneOfType([
     PropTypes.string,

@@ -82,6 +82,7 @@ export default class Month extends React.Component {
       timeslotProps,
       selectedTimeslots,
       disabledTimeslots,
+      groupTimeslots,
       renderDays,
     } = this.props;
 
@@ -94,6 +95,7 @@ export default class Month extends React.Component {
         timeslotProps = { timeslotProps }
         selectedTimeslots = { selectedTimeslots }
         disabledTimeslots = { disabledTimeslots }
+        groupTimeslots = { groupTimeslots }
         renderDays = { renderDays }
       />
     );
@@ -185,5 +187,6 @@ Month.propTypes = {
   timeslotProps: PropTypes.object,
   selectedTimeslots: PropTypes.array,
   disabledTimeslots: PropTypes.array,
+  groupTimeslots: PropTypes.array,
   renderDays: PropTypes.object,
 };

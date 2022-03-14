@@ -76,6 +76,7 @@ export default class Calendar extends React.Component {
         timeslotProps = { this.timeslotProps }
         selectedTimeslots = { selectedTimeslots }
         disabledTimeslots = { this._formatDisabledTimeslots() }
+        groupTimeslots = { this._formatGroupTimeslots() }
         renderDays = { this.renderDays }
       />
     );
@@ -162,6 +163,20 @@ export default class Calendar extends React.Component {
       timeslotMoment.startDate = moment(timeslotMoment.startDate, timeslotMoment.format);
       timeslotMoment.endDate = moment(timeslotMoment.endDate, timeslotMoment.format);
 
+      return timeslotMoment;
+    });
+  }
+
+  _formatGroupTimeslots() {
+    const {
+      groupTimeslots,
+    } = this.props;
+
+    return groupTimeslots.map((timeslot) => {
+      let timeslotMoment = Object.assign({}, timeslot);
+      timeslotMoment.startDate = moment(timeslotMoment.startDate, timeslotMoment.format);
+      timeslotMoment.endDate = moment(timeslotMoment.endDate, timeslotMoment.format);
+      timeslotMoment.amount = timeslotMoment.amount;
       return timeslotMoment;
     });
   }
@@ -256,6 +271,7 @@ export default class Calendar extends React.Component {
 
 Calendar.defaultProps = {
   disabledTimeslots: [],
+  groupTimeslots: [],
   maxTimeslots: 1,
   inputProps: {
     names: {},
@@ -279,6 +295,7 @@ Calendar.propTypes = {
   initialDate: PropTypes.string.isRequired,
   timeslots: PropTypes.array.isRequired,
   timeslotProps: PropTypes.object,
+  groupTimeslots: PropTypes.array,
   selectedTimeslots: PropTypes.array,
   disabledTimeslots: PropTypes.array,
   maxTimeslots: PropTypes.number,
